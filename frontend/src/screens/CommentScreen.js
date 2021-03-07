@@ -16,6 +16,7 @@ import {API_URL, IMG_URL} from '@env';
 import axios from 'axios';
 import moment from 'moment';
 import Loader from '../components/common/Loader';
+import UserAvatar from 'react-native-user-avatar';
 
 export default class CommentScreen extends Component {
   constructor() {
@@ -187,20 +188,10 @@ export default class CommentScreen extends Component {
                       marginBottom: 10,
                     }}>
                     <View>
-                      <Image
-                        style={{
-                          width: 40,
-                          height: 40,
-                          borderRadius: 50,
-                        }}
-                        source={{
-                          uri:
-                            'https://images.pexels.com/photos/1456613/pexels-photo-1456613.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                        }}
-                      />
+                      <UserAvatar size={35} name={item.comment.slice(0, 6)} />
                     </View>
 
-                    <View style={{marginLeft: 15}}>
+                    <View style={{marginLeft: 10}}>
                       <View
                         style={{
                           display: 'flex',
