@@ -19,9 +19,10 @@ import axios from 'axios';
 import {API_URL, IMG_URL} from '@env';
 import moment from 'moment';
 
-const size = 20;
+const size = 25;
 const color = 'gray';
 import Loader from '../components/common/Loader';
+import BackArrow from '../components/common/BackArrow';
 
 export default class NewsDetailScreen extends Component {
   constructor() {
@@ -34,7 +35,7 @@ export default class NewsDetailScreen extends Component {
     };
   }
   componentDidMount() {
-    this.fetchNewsDetails();
+    // this.fetchNewsDetails();
 
     var getBookmark = JSON.parse(localStorage.getItem('myBookmark'));
 
@@ -44,6 +45,11 @@ export default class NewsDetailScreen extends Component {
         this.state.myBookmark.push(elements);
       }
     }
+    const unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.fetchNewsDetails();
+    });
+
+    return unsubscribe;
   }
 
   addToBookmark = (data) => {
@@ -165,158 +171,166 @@ export default class NewsDetailScreen extends Component {
 
     const userData = JSON.parse(localStorage.getItem('userData'));
     const myBookmark = JSON.parse(localStorage.getItem('myBookmark'));
-
     const item = this.state.news_details;
+
+    // for screen reload
+
     return (
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh}
-          />
-        }
-        style={styles.container}>
-        <ImageBackground
-          style={{
-            width: '100%',
-            height: hp('30%'),
-            borderRadius: 10,
-            resizeMode: 'cover',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-end',
-          }}
-          imageStyle={{borderRadius: 10}}
-          source={{
-            uri: `${IMG_URL}/${item.urlToImage}`,
-          }}>
-          <TouchableOpacity onPress={this.onShare}>
-            <Icon
-              name={'share-alt'}
-              size={25}
-              color={'#fff'}
-              style={{marginVertical: 15, marginHorizontal: 20}}
+      <>
+        <BackArrow goBack={() => this.props.navigation.goBack()} />
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
             />
-          </TouchableOpacity>
-        </ImageBackground>
-        <View style={{padding: 10}}>
-          <View
+          }
+          style={styles.container}>
+          <ImageBackground
             style={{
+              width: '100%',
+              height: hp('30%'),
+              borderRadius: 10,
+              resizeMode: 'cover',
               display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              marginVertical: 15,
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+            }}
+            imageStyle={{borderRadius: 10}}
+            source={{
+              uri: `${IMG_URL}/${item.urlToImage}`,
             }}>
-            <TouchableOpacity style={styles.catButton}>
-              <Text style={{color: '#000', fontSize: 14}}>{item.category}</Text>
+            <TouchableOpacity onPress={this.onShare}>
+              <Icon
+                name={'share-alt'}
+                size={size}
+                color={'#E56924'}
+                style={{marginVertical: 15, marginHorizontal: 20}}
+              />
             </TouchableOpacity>
+          </ImageBackground>
+          <View style={{padding: 10}}>
             <View
               style={{
                 display: 'flex',
                 flexDirection: 'row',
                 alignItems: 'center',
-              }}>
-              {userData === null ? (
-                <TouchableOpacity
-                  onPress={() =>
-                    this.props.navigation.navigate('RegisterScreen')
-                  }>
-                  <Icon name={'heart-o'} size={size} color={color} />
-                </TouchableOpacity>
-              ) : (
-                <>
-                  {this.state.like_loader ||
-                  item.likers.includes(userData.id) ? (
-                    <TouchableOpacity
-                      onPress={() => this.disLikeHandler(item._id)}>
-                      <Icon name={'heart'} size={size} color={color} />
-                    </TouchableOpacity>
-                  ) : (
-                    <TouchableOpacity
-                      onPress={() => this.likeHandler(item._id)}>
-                      <Icon name={'heart-o'} size={size} color={color} />
-                    </TouchableOpacity>
-                  )}
-                </>
-              )}
-
-              {this.state.like_loader ||
-              myBookmark == null ||
-              myBookmark.filter((news) => news._id == item._id).length === 0 ? (
-                <TouchableOpacity
-                  onPress={() => this.addToBookmark(item)}
-                  style={{marginLeft: 10}}>
-                  <Icon name={'bookmark-o'} size={size} color={color} />
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => this.removeToBookmark(item)}
-                  style={{marginLeft: 10}}>
-                  <Icon name={'bookmark'} size={size} color={color} />
-                </TouchableOpacity>
-              )}
-            </View>
-          </View>
-
-          <View>
-            <Text>
-              <Icon name={'clock-o'} size={size} color={color} />{' '}
-              <Text style={{color: color}}>
-                {moment(item.updatedAt).format('DD MMMM YY')}
-              </Text>
-            </Text>
-            <Text
-              style={{fontSize: 18, fontWeight: 'bold', marginVertical: 10}}>
-              {item.title}
-            </Text>
-
-            <View
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
                 justifyContent: 'space-between',
-                alignItems: 'center',
+                marginVertical: 15,
               }}>
-              <Text>
-                <Icon name={'heart'} size={16} color={color} />{' '}
-                <Text style={{color: color}}>
-                  {item.likers.length} People like this
-                </Text>
-              </Text>
-
-              <TouchableOpacity
-                onPress={() => {
-                  this.props.navigation.navigate('Comments', {
-                    news_id: item._id,
-                  });
-                }}
-                style={{
-                  marginLeft: 20,
-                  paddingHorizontal: 14,
-                  paddingVertical: 5,
-                  backgroundColor: '#E56924',
-                  borderRadius: 5,
-                }}>
-                <Text>
-                  <Icon name={'comment-o'} size={size} color={'#fff'} />{' '}
-                  <Text style={{color: '#fff'}}>Comment</Text>
+              <TouchableOpacity style={styles.catButton}>
+                <Text style={{color: '#000', fontSize: 14}}>
+                  {item.category}
                 </Text>
               </TouchableOpacity>
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                {userData === null ? (
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.props.navigation.navigate('RegisterScreen')
+                    }>
+                    <Icon name={'heart-o'} size={size} color={color} />
+                  </TouchableOpacity>
+                ) : (
+                  <>
+                    {this.state.like_loader ||
+                    item.likers.includes(userData.id) ? (
+                      <TouchableOpacity
+                        onPress={() => this.disLikeHandler(item._id)}>
+                        <Icon name={'heart'} size={size} color={color} />
+                      </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity
+                        onPress={() => this.likeHandler(item._id)}>
+                        <Icon name={'heart-o'} size={size} color={color} />
+                      </TouchableOpacity>
+                    )}
+                  </>
+                )}
+
+                {this.state.like_loader ||
+                myBookmark == null ||
+                myBookmark.filter((news) => news._id == item._id).length ===
+                  0 ? (
+                  <TouchableOpacity
+                    onPress={() => this.addToBookmark(item)}
+                    style={{marginLeft: 10}}>
+                    <Icon name={'bookmark-o'} size={size} color={color} />
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => this.removeToBookmark(item)}
+                    style={{marginLeft: 10}}>
+                    <Icon name={'bookmark'} size={size} color={color} />
+                  </TouchableOpacity>
+                )}
+              </View>
             </View>
 
-            <Text
-              style={{
-                color: 'gray',
-                fontSize: 16,
-                letterSpacing: 0.2,
-                paddingVertical: 25,
-              }}>
-              {item.description}
-            </Text>
+            <View>
+              <Text>
+                <Icon name={'clock-o'} size={size} color={color} />{' '}
+                <Text style={{color: color}}>
+                  {moment(item.updatedAt).format('DD MMMM YY')}
+                </Text>
+              </Text>
+              <Text
+                style={{fontSize: 18, fontWeight: 'bold', marginVertical: 10}}>
+                {item.title}
+              </Text>
+
+              <View
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <Text>
+                  <Icon name={'heart'} size={16} color={color} />{' '}
+                  <Text style={{color: color}}>
+                    {item.likers.length} People like this
+                  </Text>
+                </Text>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    this.props.navigation.navigate('Comments', {
+                      news_id: item._id,
+                    });
+                  }}
+                  style={{
+                    marginLeft: 20,
+                    paddingHorizontal: 14,
+                    paddingVertical: 5,
+                    backgroundColor: '#E56924',
+                    borderRadius: 5,
+                  }}>
+                  <Text>
+                    <Icon name={'comment-o'} size={20} color={'#fff'} />{' '}
+                    <Text style={{color: '#fff'}}>Comment</Text>
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              <Text
+                style={{
+                  color: 'gray',
+                  fontSize: 16,
+                  letterSpacing: 0.2,
+                  paddingVertical: 25,
+                }}>
+                {item.description}
+              </Text>
+            </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </>
     );
   }
 }

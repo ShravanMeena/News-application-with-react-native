@@ -38,7 +38,10 @@ export default class HomeScreen extends Component {
     });
   };
   componentDidMount() {
-    this.getBookmarkData();
+    const unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.getBookmarkData();
+    });
+    return unsubscribe;
   }
 
   removeToBookmark = (id) => {
@@ -79,7 +82,7 @@ export default class HomeScreen extends Component {
         {/* popular news section start*/}
         <View style={styles.header}>
           <Text style={styles.title}>
-            My <Text style={{color: '#E56924'}}>Favourites</Text>
+            My <Text style={{color: '#E56924'}}>Saved</Text>
           </Text>
           <TouchableOpacity onPress={() => this.clearAllHandler()}>
             <Text style={styles.subTitle}>Clear all</Text>

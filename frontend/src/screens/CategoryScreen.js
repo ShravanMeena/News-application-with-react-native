@@ -15,7 +15,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {API_URL, IMG_URL} from '@env';
 import axios from 'axios';
 import Loader from '../components/common/Loader';

@@ -20,12 +20,13 @@ import axios from 'axios';
 import {API_URL, IMG_URL} from '@env';
 import moment from 'moment';
 import Loader from '../components/common/Loader';
+import BackArrow from '../components/common/BackArrow';
 
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      news: [],
+      news: null,
       refreshing: false,
     };
   }
@@ -84,95 +85,107 @@ export default class HomeScreen extends Component {
   };
 
   render() {
+    if (this.state.news === null) {
+      return <Loader />;
+    }
+
     return (
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh}
-          />
-        }
-        style={styles.container}>
-        {/* main header with carousel start*/}
-        <View style={styles.header}>
-          <Text style={styles.title}>{this.props.route.params.heading}</Text>
-          {/* <TouchableOpacity>
-            <Text style={styles.subtitle}>More</Text>
-          </TouchableOpacity> */}
-        </View>
+      <>
+        <BackArrow
+          goBack={() => this.props.navigation.goBack()}
+          title={<Text>{this.props.route.params.heading}</Text>}
+        />
 
-        {this.state.news.length === 0 ? (
-          <View>
-            <Image
-              source={require('../assets/contact.png')}
-              style={{
-                width: '100%',
-                height: 150,
-                resizeMode: 'contain',
-                marginVertical: 50,
-              }}
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh}
             />
-            <Text
-              style={{
-                textAlign: 'center',
-                fontSize: 16,
-                fontWeight: '500',
-                marginTop: 50,
-              }}>
-              Opps{' '}
-              <Text style={{color: '#E56924'}}>
-                {this.props.route.params.heading}
-              </Text>{' '}
-              not available
-            </Text>
-          </View>
-        ) : (
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            data={this.state.news}
-            renderItem={({item, index}) => {
-              return (
-                <View key={index} style={styles.mainCarousel}>
-                  <Image
-                    style={styles.mainCarouselImage}
-                    source={{
-                      uri: `${IMG_URL}/${item.urlToImage}`,
-                    }}
-                  />
-                  <View style={{padding: 8}}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        this.props.navigation.navigate('NewsDetailScreen', {
-                          news_id: item._id,
-                        });
-                      }}>
-                      <Text style={styles.mainCarouselTitle}>
-                        {item.title.slice(0, 85)}...
-                      </Text>
-                    </TouchableOpacity>
+          }
+          style={styles.container}>
+          {/* <Video
+          source={{
+            uri:
+              'https://assets.mixkit.co/videos/download/mixkit-countryside-meadow-4075.mp4',
+          }}
+        /> */}
 
-                    <View style={styles.mainCarouselFooter}>
+          {this.state.news.length === 0 ? (
+            <View>
+              <Image
+                source={require('../assets/contact.png')}
+                style={{
+                  width: '100%',
+                  height: 150,
+                  resizeMode: 'contain',
+                  marginVertical: 50,
+                }}
+              />
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontSize: 16,
+                  fontWeight: '500',
+                  marginTop: 50,
+                }}>
+                Opps{' '}
+                <Text style={{color: '#E56924'}}>
+                  {this.props.route.params.heading}
+                </Text>{' '}
+                not available
+              </Text>
+            </View>
+          ) : (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              showsHorizontalScrollIndicator={false}
+              data={this.state.news}
+              renderItem={({item, index}) => {
+                return (
+                  <View key={index} style={styles.mainCarousel}>
+                    <Image
+                      style={styles.mainCarouselImage}
+                      source={{
+                        uri: `${IMG_URL}/${item.urlToImage}`,
+                      }}
+                    />
+                    <View style={{padding: 8}}>
                       <TouchableOpacity
-                        style={styles.mainCarouselCategoryHighlight}>
-                        <Text style={styles.mainCarouselCategoryHighlightText}>
-                          {item.category}
+                        onPress={() => {
+                          this.props.navigation.navigate('NewsDetailScreen', {
+                            news_id: item._id,
+                          });
+                        }}>
+                        <Text style={styles.mainCarouselTitle}>
+                          {item.title.slice(0, 85)}...
                         </Text>
                       </TouchableOpacity>
 
-                      <Text style={styles.mainCarouselCategoryHighlightSubText}>
-                        {moment(item.updatedAt).format('MMMM YY')}
-                      </Text>
+                      <View style={styles.mainCarouselFooter}>
+                        <TouchableOpacity
+                          style={styles.mainCarouselCategoryHighlight}>
+                          <Text
+                            style={styles.mainCarouselCategoryHighlightText}>
+                            {item.category}
+                          </Text>
+                        </TouchableOpacity>
+
+                        <Text
+                          style={styles.mainCarouselCategoryHighlightSubText}>
+                          {moment(item.updatedAt).format('MMMM YY')}
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                </View>
-              );
-            }}
-            keyExtractor={(item, index) => index}
-          />
-        )}
-        {/* main header with carousel end */}
-      </ScrollView>
+                );
+              }}
+              keyExtractor={(item, index) => index}
+            />
+          )}
+          {/* main header with carousel end */}
+        </ScrollView>
+      </>
     );
   }
 }

@@ -23,222 +23,319 @@ import RegisterScreen from './src/screens/RegisterScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function SettingsScreenDetails() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>SettingsScreenDetails!</Text>
-    </View>
-  );
-}
+// function SettingsScreenDetails() {
+//   return (
+//     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+//       <Text>SettingsScreenDetails!</Text>
+//     </View>
+//   );
+// }
 
-const navOptionsHandler = () => ({
-  headerShown: false,
-});
+// const navOptionsHandler = () => ({
+//   headerShown: false,
+// });
 
-// stack
-function HomeStack() {
+// // stack
+// function HomeStack() {
+//   return (
+//     <Stack.Navigator
+//       initialRouteName="HomeScreen"
+//       screenOptions={({route, navigation}) => ({
+//         headerShown: false,
+//         gestureEnabled: true,
+//         cardOverlayEnabled: true,
+//         ...TransitionPresets.SlideFromRightIOS,
+//       })}
+//       mode="modal">
+//       <Stack.Screen name="HomeScreen" component={HomeScreen} />
+//       <Stack.Screen name="NewsDetailScreen" component={NewsDetailScreen} />
+
+//       <Stack.Screen
+//         name="Comments"
+//         component={CommentScreen}
+//         options={{
+//           ...TransitionPresets.ModalPresentationIOS,
+//         }}
+//       />
+
+//       <Stack.Screen
+//         name="MoreNews"
+//         component={MoreNews}
+//         options={{
+//           ...TransitionPresets.ModalSlideFromBottomIOS,
+//         }}
+//       />
+//       {/* <Stack.Screen
+//         name="LoginScreen"
+//         component={LoginScreen}
+//         options={{
+//           ...TransitionPresets.ModalPresentationIOS,
+//         }}
+//       /> */}
+
+//       <Stack.Screen
+//         name="RegisterScreen"
+//         component={RegisterScreen}
+//         options={{
+//           ...TransitionPresets.ModalPresentationIOS,
+//         }}
+//       />
+//     </Stack.Navigator>
+//   );
+// }
+// function SettingStack() {
+//   return (
+//     <Stack.Navigator
+//       initialRouteName="SettingScreen"
+//       screenOptions={({route, navigation}) => ({
+//         headerShown: false,
+//         gestureEnabled: true,
+//         cardOverlayEnabled: true,
+//         ...TransitionPresets.SlideFromRightIOS,
+//       })}
+//       mode="modal">
+//       <Stack.Screen
+//         name="SettingScreen"
+//         component={SettingScreen}
+//         options={navOptionsHandler}
+//       />
+//       {/* <Stack.Screen
+//         name="RegisterScreen"
+//         component={RegisterScreen}
+//         options={{
+//           ...TransitionPresets.ModalPresentationIOS,
+//         }}
+//       />
+
+//       <Stack.Screen
+//         name="LoginScreen"
+//         component={LoginScreen}
+//         options={{
+//           ...TransitionPresets.ModalPresentationIOS,
+//         }}
+//       /> */}
+//     </Stack.Navigator>
+//   );
+// }
+
+// function SearchStack() {
+//   return (
+//     <Stack.Navigator
+//       initialRouteName="SearchScreen"
+//       screenOptions={({route, navigation}) => ({
+//         headerShown: false,
+//         gestureEnabled: true,
+//         cardOverlayEnabled: true,
+//         ...TransitionPresets.SlideFromRightIOS,
+//       })}
+//       mode="modal">
+//       <Stack.Screen
+//         name="SearchScreen"
+//         component={SearchScreen}
+//         options={navOptionsHandler}
+//       />
+//       <Stack.Screen
+//         name="SettingsScreenDetails"
+//         component={SettingsScreenDetails}
+//       />
+
+//       <Stack.Screen
+//         name="RegisterScreen"
+//         component={RegisterScreen}
+//         options={{
+//           ...TransitionPresets.ModalPresentationIOS,
+//         }}
+//       />
+//       <Stack.Screen name="NewsDetailScreen" component={NewsDetailScreen} />
+//     </Stack.Navigator>
+//   );
+// }
+
+// function CategorieStack() {
+//   return (
+//     <Stack.Navigator
+//       initialRouteName="CategoryScreen"
+//       screenOptions={({route, navigation}) => ({
+//         headerShown: false,
+//         gestureEnabled: true,
+//         cardOverlayEnabled: true,
+//         ...TransitionPresets.SlideFromRightIOS,
+//       })}
+//       mode="modal">
+//       <Stack.Screen
+//         name="CategoryScreen"
+//         component={CategoryScreen}
+//         options={navOptionsHandler}
+//       />
+//       <Stack.Screen
+//         name="SettingsScreenDetails"
+//         component={SettingsScreenDetails}
+//       />
+
+//       <Stack.Screen
+//         name="MoreNews"
+//         component={MoreNews}
+//         options={{
+//           ...TransitionPresets.ModalSlideFromBottomIOS,
+//         }}
+//       />
+
+//       <Stack.Screen
+//         name="Comments"
+//         component={CommentScreen}
+//         options={{
+//           ...TransitionPresets.ModalPresentationIOS,
+//         }}
+//       />
+
+//       <Stack.Screen name="NewsDetailScreen" component={NewsDetailScreen} />
+//     </Stack.Navigator>
+//   );
+// }
+
+// function FavouriteStack() {
+//   return (
+//     <Stack.Navigator initialRouteName="FavouriteScreen">
+//       <Stack.Screen
+//         name="FavouriteScreen"
+//         component={FavouriteScreen}
+//         options={navOptionsHandler}
+//       />
+//       <Stack.Screen
+//         name="SettingsScreenDetails"
+//         component={SettingsScreenDetails}
+//       />
+//       <Stack.Screen
+//         name="RegisterScreen"
+//         component={RegisterScreen}
+//         options={{
+//           ...TransitionPresets.ModalPresentationIOS,
+//         }}
+//       />
+//       <Stack.Screen name="NewsDetailScreen" component={NewsDetailScreen} />
+//     </Stack.Navigator>
+//   );
+// }
+
+// LogBox.ignoreAllLogs();
+
+// export default function App() {
+//   return (
+//     <NavigationContainer>
+//       <Tab.Navigator
+//         screenOptions={({route}) => ({
+//           tabBarIcon: ({focused, color, size}) => {
+//             let iconName;
+
+//             if (route.name === 'Home') {
+//               iconName = focused ? 'home' : 'home';
+//             } else if (route.name === 'Setting') {
+//               iconName = focused ? 'cog' : 'cog';
+//             } else if (route.name === 'Search') {
+//               iconName = focused ? 'search' : 'search';
+//             } else if (route.name === 'Category') {
+//               iconName = focused ? 'table' : 'table';
+//             } else if (route.name === 'Saved') {
+//               iconName = focused ? 'bookmark-o' : 'bookmark-o';
+//             }
+
+//             // You can return any component that you like here!
+//             return <Icon name={iconName} size={size} color={color} />;
+//           },
+//         })}
+//         tabBarOptions={{
+//           activeTintColor: '#E56924',
+//           inactiveTintColor: 'gray',
+//         }}
+//         initialRouteName="Home">
+//         <Tab.Screen name="Home" component={HomeStack} />
+//         <Tab.Screen name="Category" component={CategorieStack} />
+//         <Tab.Screen name="Search" component={SearchStack} />
+//         <Tab.Screen name="Saved" component={FavouriteStack} />
+//         <Tab.Screen name="Setting" component={SettingStack} />
+//       </Tab.Navigator>
+//     </NavigationContainer>
+//   );
+// }
+
+function Home() {
   return (
-    <Stack.Navigator
-      initialRouteName="HomeScreen"
-      screenOptions={({route, navigation}) => ({
-        headerShown: false,
-        gestureEnabled: true,
-        cardOverlayEnabled: true,
-        ...TransitionPresets.SlideFromRightIOS,
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home';
+          } else if (route.name === 'Setting') {
+            iconName = focused ? 'cog' : 'cog';
+          } else if (route.name === 'Search') {
+            iconName = focused ? 'search' : 'search';
+          } else if (route.name === 'Category') {
+            iconName = focused ? 'table' : 'table';
+          } else if (route.name === 'Saved') {
+            iconName = focused ? 'bookmark-o' : 'bookmark-o';
+          }
+
+          // You can return any component that you like here!
+          return <Icon name={iconName} size={size} color={color} />;
+        },
       })}
-      mode="modal">
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="NewsDetailScreen" component={NewsDetailScreen} />
-
-      <Stack.Screen
-        name="Comments"
-        component={CommentScreen}
-        options={{
-          ...TransitionPresets.ModalPresentationIOS,
-        }}
-      />
-
-      <Stack.Screen
-        name="MoreNews"
-        component={MoreNews}
-        options={{
-          ...TransitionPresets.ModalSlideFromBottomIOS,
-        }}
-      />
-      <Stack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={{
-          ...TransitionPresets.ModalPresentationIOS,
-        }}
-      />
-
-      <Stack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={{
-          ...TransitionPresets.ModalPresentationIOS,
-        }}
-      />
-    </Stack.Navigator>
+      tabBarOptions={{
+        activeTintColor: '#E56924',
+        inactiveTintColor: 'gray',
+      }}
+      initialRouteName="Home">
+      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Category" component={CategoryScreen} />
+      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Saved" component={FavouriteScreen} />
+      <Tab.Screen name="Setting" component={SettingScreen} />
+    </Tab.Navigator>
   );
 }
-function SettingStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="SettingScreen"
-      screenOptions={({route, navigation}) => ({
-        headerShown: false,
-        gestureEnabled: true,
-        cardOverlayEnabled: true,
-        ...TransitionPresets.SlideFromRightIOS,
-      })}
-      mode="modal">
-      <Stack.Screen
-        name="SettingScreen"
-        component={SettingScreen}
-        options={navOptionsHandler}
-      />
-      <Stack.Screen
-        name="RegisterScreen"
-        component={RegisterScreen}
-        options={{
-          ...TransitionPresets.ModalPresentationIOS,
-        }}
-      />
-
-      <Stack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={{
-          ...TransitionPresets.ModalPresentationIOS,
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function SearchStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="SearchScreen"
-      screenOptions={({route, navigation}) => ({
-        headerShown: false,
-        gestureEnabled: true,
-        cardOverlayEnabled: true,
-        ...TransitionPresets.SlideFromRightIOS,
-      })}
-      mode="modal">
-      <Stack.Screen
-        name="SearchScreen"
-        component={SearchScreen}
-        options={navOptionsHandler}
-      />
-      <Stack.Screen
-        name="SettingsScreenDetails"
-        component={SettingsScreenDetails}
-      />
-      <Stack.Screen name="NewsDetailScreen" component={NewsDetailScreen} />
-    </Stack.Navigator>
-  );
-}
-
-function CategorieStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="CategoryScreen"
-      screenOptions={({route, navigation}) => ({
-        headerShown: false,
-        gestureEnabled: true,
-        cardOverlayEnabled: true,
-        ...TransitionPresets.SlideFromRightIOS,
-      })}
-      mode="modal">
-      <Stack.Screen
-        name="CategoryScreen"
-        component={CategoryScreen}
-        options={navOptionsHandler}
-      />
-      <Stack.Screen
-        name="SettingsScreenDetails"
-        component={SettingsScreenDetails}
-      />
-
-      <Stack.Screen
-        name="MoreNews"
-        component={MoreNews}
-        options={{
-          ...TransitionPresets.ModalSlideFromBottomIOS,
-        }}
-      />
-
-      <Stack.Screen
-        name="Comments"
-        component={CommentScreen}
-        options={{
-          ...TransitionPresets.ModalPresentationIOS,
-        }}
-      />
-
-      <Stack.Screen name="NewsDetailScreen" component={NewsDetailScreen} />
-    </Stack.Navigator>
-  );
-}
-
-function FavouriteStack() {
-  return (
-    <Stack.Navigator initialRouteName="FavouriteScreen">
-      <Stack.Screen
-        name="FavouriteScreen"
-        component={FavouriteScreen}
-        options={navOptionsHandler}
-      />
-      <Stack.Screen
-        name="SettingsScreenDetails"
-        component={SettingsScreenDetails}
-      />
-      <Stack.Screen name="NewsDetailScreen" component={NewsDetailScreen} />
-    </Stack.Navigator>
-  );
-}
-
 LogBox.ignoreAllLogs();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({route}) => ({
-          tabBarIcon: ({focused, color, size}) => {
-            let iconName;
-
-            if (route.name === 'Home') {
-              iconName = focused ? 'home' : 'home';
-            } else if (route.name === 'Setting') {
-              iconName = focused ? 'cog' : 'cog';
-            } else if (route.name === 'Search') {
-              iconName = focused ? 'search' : 'search';
-            } else if (route.name === 'Category') {
-              iconName = focused ? 'table' : 'table';
-            } else if (route.name === 'Saved') {
-              iconName = focused ? 'bookmark-o' : 'bookmark-o';
-            }
-
-            // You can return any component that you like here!
-            return <Icon name={iconName} size={size} color={color} />;
-          },
+      <Stack.Navigator
+        initialRouteName="HomeScreen"
+        screenOptions={({route, navigation}) => ({
+          headerShown: false,
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
+          ...TransitionPresets.ModalSlideFromBottomIOS,
         })}
-        tabBarOptions={{
-          activeTintColor: '#E56924',
-          inactiveTintColor: 'gray',
-        }}
-        initialRouteName="Home">
-        <Tab.Screen name="Home" component={HomeStack} />
-        <Tab.Screen name="Category" component={CategorieStack} />
-        <Tab.Screen name="Search" component={SearchStack} />
-        <Tab.Screen name="Saved" component={FavouriteStack} />
-        <Tab.Screen name="Setting" component={SettingStack} />
-      </Tab.Navigator>
+        mode="modal">
+        <Stack.Screen name="HomeScreen" component={Home} />
+        <Stack.Screen name="NewsDetailScreen" component={NewsDetailScreen} />
+
+        <Stack.Screen
+          name="Comments"
+          component={CommentScreen}
+          options={{
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+
+        <Stack.Screen name="MoreNews" component={MoreNews} />
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+          options={{
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+
+        <Stack.Screen
+          name="RegisterScreen"
+          component={RegisterScreen}
+          options={{
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

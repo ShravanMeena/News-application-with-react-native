@@ -320,6 +320,9 @@ export default class HomeScreen extends Component {
         </View>
 
         <FlatList
+          style={{
+            marginBottom: 30,
+          }}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
           data={this.state.recent_news}
@@ -498,7 +501,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     marginRight: '2%',
-    marginBottom: 15,
+    marginBottom: '2%',
   },
   recentNewsImg: {
     width: '100%',
@@ -508,5 +511,6 @@ const styles = StyleSheet.create({
   recentNewsTitle: {
     fontSize: 14,
     fontWeight: '700',
+    padding: 10,
   },
 });

@@ -17,10 +17,34 @@ export default class RegisterScreen extends Component {
     this.state = {
       name: '',
       mobile: '',
-      // password: '',
+      token: '',
       loader: false,
     };
   }
+
+  submitHandler = (e) => {
+    const {name, token} = this.state;
+    const data = {
+      name,
+    };
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    axios
+      .put(`${API_URL}/users/profile`, data, config)
+      .then((response) => {
+        this.props.navigation.goBack();
+      })
+      .catch((error) => {
+        console.log(error);
+        this.setState({
+          loading: false,
+        });
+      });
+  };
 
   loginHandler = async () => {
     const {mobile} = this.state;
@@ -37,8 +61,9 @@ export default class RegisterScreen extends Component {
         localStorage.setItem('userData', JSON.stringify(res.data));
         this.setState({
           loader: false,
+          token: res.data.token,
         });
-        this.props.navigation.goBack();
+        this.submitHandler();
       })
       .catch((err) => {
         console.log('Error : ' + JSON.stringify(err.response.data));

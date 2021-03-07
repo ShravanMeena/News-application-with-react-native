@@ -22,14 +22,18 @@ export default class CommentScreen extends Component {
     super();
     this.state = {
       comment: '',
-      news_comments: [],
+      news_comments: null,
       comment_loader: false,
       refreshing: false,
     };
   }
 
   componentDidMount() {
-    this.fetchNewsDetails();
+    const unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.fetchNewsDetails();
+    });
+
+    return unsubscribe;
   }
 
   fetchNewsDetails = async () => {
@@ -49,6 +53,10 @@ export default class CommentScreen extends Component {
   };
 
   commentHandler = () => {
+    if (!this.state.comment) {
+      alert('Please enter your commnet');
+      return;
+    }
     this.setState({
       comment_loader: true,
     });
@@ -121,6 +129,10 @@ export default class CommentScreen extends Component {
   };
 
   render() {
+    // for refresh page
+    if (this.state.news_comments === null) {
+      return <Loader />;
+    }
     const userData = JSON.parse(localStorage.getItem('userData'));
     return (
       <SafeAreaView style={styles.container}>

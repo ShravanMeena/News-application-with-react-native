@@ -15,10 +15,11 @@ const newsSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-
     urlToImage: {
       type: String,
-      required: true,
+    },
+    urlOfVideo: {
+      type: String,
     },
     content: {
       type: String,
