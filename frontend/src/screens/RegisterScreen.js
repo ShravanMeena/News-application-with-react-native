@@ -151,17 +151,6 @@ export default class RegisterScreen extends Component {
             />
           </View>
 
-          {/* <View>
-            <Text style={styles.textInputTitle}>Password</Text>
-            <TextInput
-              style={styles.textInput}
-              secureTextEntry
-              onChangeText={(value) => this.setState({password: value})}
-              placeholder="Password"
-              keyboardType="mobile-address"
-            />
-          </View> */}
-
           <View
             style={{
               display: 'flex',
@@ -187,29 +176,6 @@ export default class RegisterScreen extends Component {
             )}
           </View>
         </View>
-
-        {/* <View
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}>
-          <Text
-            style={{
-              color: '#E56924',
-              paddingBottom: 20,
-            }}>
-            Or
-          </Text>
-
-          <Text>
-            Already have an account yet?{' '}
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('LoginScreen')}>
-              <Text style={{color: '#E56924'}}>Login here.</Text>
-            </TouchableOpacity>
-          </Text>
-        </View> */}
       </ScrollView>
     );
   }

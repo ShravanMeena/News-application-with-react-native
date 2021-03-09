@@ -20,6 +20,10 @@ import MoreNews from './src/screens/MoreNews';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 
+import QuizScreen from './src/screens/QuizScreen';
+import QuizQuestionsScreen from './src/screens/QuizQuestionsScreen';
+import QuizResultScreen from './src/screens/QuizResultScreen';
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -34,8 +38,8 @@ function Home() {
             iconName = focused ? 'home' : 'home';
           } else if (route.name === 'Setting') {
             iconName = focused ? 'cog' : 'cog';
-          } else if (route.name === 'Search') {
-            iconName = focused ? 'search' : 'search';
+          } else if (route.name === 'Quiz') {
+            iconName = focused ? 'trophy' : 'trophy';
           } else if (route.name === 'Category') {
             iconName = focused ? 'table' : 'table';
           } else if (route.name === 'Saved') {
@@ -53,7 +57,7 @@ function Home() {
       initialRouteName="Home">
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Category" component={CategoryScreen} />
-      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Quiz" component={QuizScreen} />
       <Tab.Screen name="Saved" component={FavouriteScreen} />
       <Tab.Screen name="Setting" component={SettingScreen} />
     </Tab.Navigator>
@@ -84,6 +88,14 @@ export default function App() {
           }}
         />
 
+        <Stack.Screen
+          name="SearchScreen"
+          component={SearchScreen}
+          options={{
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+
         <Stack.Screen name="MoreNews" component={MoreNews} />
         <Stack.Screen
           name="LoginScreen"
@@ -100,6 +112,15 @@ export default function App() {
             ...TransitionPresets.ModalPresentationIOS,
           }}
         />
+
+        <Stack.Screen name="QuizScreen" component={QuizScreen} />
+
+        <Stack.Screen
+          name="QuizQuestionsScreen"
+          component={QuizQuestionsScreen}
+        />
+
+        <Stack.Screen name="QuizResultScreen" component={QuizResultScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

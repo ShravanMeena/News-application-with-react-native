@@ -10,6 +10,8 @@ target 'news_leader' do
 
   pod 'react-native-video', :path => '../node_modules/react-native-video'
 
+  pod 'react-native-netinfo', :path => '../node_modules/@react-native-community/netinfo'
+
   target 'news_leaderTests' do
     inherit! :complete
     # Pods for testing

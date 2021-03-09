@@ -54,7 +54,7 @@ export default class CommentScreen extends Component {
   };
 
   commentHandler = () => {
-    if (!this.state.comment) {
+    if (this.state.comment.length === 0) {
       alert('Please enter your commnet');
       return;
     }

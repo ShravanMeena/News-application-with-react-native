@@ -1,88 +1,30 @@
 import React, {Component} from 'react';
 import {
   FlatList,
-  ScrollView,
   Text,
   View,
   StyleSheet,
-  Image,
-  Button,
   TouchableOpacity,
   ImageBackground,
-  RefreshControl,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {API_URL, IMG_URL} from '@env';
-import axios from 'axios';
-import Loader from '../components/common/Loader';
+import {IMG_URL} from '@env';
 
-export default class CategoryScreen extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categories: [],
-      refreshing: false,
-    };
-  }
-
-  componentDidMount() {
-    this.fetchCategories();
-  }
-
-  fetchCategories = async () => {
-    try {
-      await axios({
-        method: 'get',
-        url: `${`${API_URL}/category`}`,
-      })
-        .then((res) => {
-          this.setState({
-            categories: res.data,
-          });
-        })
-        .catch((err) => {
-          console.log('Error : ' + err.response.data);
-        });
-    } catch (error) {}
-  };
-
-  _onRefresh = () => {
-    this.fetchCategories();
-    this.setState({refreshing: true});
-    setTimeout(() => {
-      this.setState({refreshing: false});
-    }, 200);
-  };
-
+export default class SpotlightNews extends Component {
   render() {
-    if (this.state.categories.length === 0) {
-      return <Loader />;
-    }
     return (
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={this.state.refreshing}
-            onRefresh={this._onRefresh}
-          />
-        }
-        style={styles.container}>
-        {/* categories section start*/}
+      <>
         <View style={styles.header}>
-          <Text style={styles.title}>
-            Pick the <Text style={{color: '#E56924'}}>Category</Text>
-          </Text>
-          {/* <TouchableOpacity>
-            <Text style={styles.subtitle}>Category</Text>
-          </TouchableOpacity> */}
+          <Text style={styles.title}>Categories</Text>
         </View>
         <FlatList
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          data={this.state.categories}
+          horizontal
+          data={this.props.data}
           renderItem={({item, index}) => {
             return (
               <TouchableOpacity
@@ -113,7 +55,7 @@ export default class CategoryScreen extends Component {
           keyExtractor={(item, index) => index}
         />
         {/* categories section end*/}
-      </ScrollView>
+      </>
     );
   }
 }
@@ -126,19 +68,29 @@ const styles = StyleSheet.create({
 
   header: {
     flex: 1,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingTop: 15,
     paddingBottom: 5,
   },
   title: {
-    fontSize: 26,
-    fontWeight: 'bold',
+    fontSize: 18,
   },
-
+  subtitle: {
+    fontSize: 14,
+    color: '#E56924',
+    marginRight: 5,
+  },
   categroyCarousel: {
-    width: '100%',
-    height: hp('22%'),
+    width: wp('70%'),
+    height: hp('20%'),
     backgroundColor: 'white',
     borderRadius: 10,
+    // borderWidth: 1,
+    // borderColor: 'lightgray',
+    marginRight: 10,
     marginBottom: 10,
   },
 
@@ -158,11 +110,11 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    padding: 15,
+    padding: 10,
   },
   catDetailsTitle: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   catDetailsSubTitle: {

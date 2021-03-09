@@ -98,7 +98,7 @@ export default class SearchScreen extends Component {
           <TextInput
             style={{width: '80%'}}
             type="text"
-            placeholder="search here"
+            placeholder="Search here"
             name="title"
             onChangeText={(text) => this.setState({title: text})}
           />
@@ -132,7 +132,7 @@ export default class SearchScreen extends Component {
                     />
 
                     <Text style={{textAlign: 'center', marginBottom: 50}}>
-                      search result appear here
+                      Search result appear here
                     </Text>
                   </View>
 
@@ -235,6 +235,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 8,
+    paddingTop: 20,
   },
   header: {
     flex: 1,
